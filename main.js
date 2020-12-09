@@ -17,13 +17,13 @@ const calculator = {
 };
 
 function inputDigit(digit) {
-  const { displayValue, waitingForSecondOperand } = calculator;
+  const {displayValue, waitingForSecondOperand} = calculator;
 
   if (waitingForSecondOperand) {
     calculator.displayValue = digit;
     calculator.waitingForSecondOperand = false;
   } else {
-    calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+    calculator.displayValue = (displayValue === '0') ? digit : displayValue + digit;
   }
 }
 
@@ -40,10 +40,10 @@ function inputDecimal(dot) {
 }
 
 function handleOperator(nextOperator) {
-  const { firstOperand, displayValue, operator } = calculator,
+  const {firstOperand, displayValue, operator} = calculator,
         inputValue = parseFloat(displayValue);
 
-  if (operator && calculator.waitingForSecondOperand)  {
+  if (operator && calculator.waitingForSecondOperand) {
     calculator.operator = nextOperator;
     return;
   }
@@ -91,8 +91,8 @@ updateDisplay();
 
 const keys = $('.calc-keys')[0];
 keys.onclick = event => {
-  const { target } = event,
-        { value } = target,
+  const {target} = event,
+        {value} = target,
         memoryValue = Number(window.sessionStorage.getItem("memCalVal"));
 
   if (!target.matches('button')) {
@@ -108,11 +108,9 @@ keys.onclick = event => {
       handleOperator(value);
       break;
     case '+-':
-      if (Number(calculator.displayValue) > 0) {
-        -Math.abs(Number(calculator.displayValue));
+      if (Number(calculator.displayValue)) {
         calculator.displayValue = -Math.abs(Number(calculator.displayValue));
       } else {
-        Math.abs(Number(calculator.displayValue));
         calculator.displayValue = Math.abs(Number(calculator.displayValue));
       }
       break;
